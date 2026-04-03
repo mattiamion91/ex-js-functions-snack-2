@@ -20,8 +20,8 @@ console.log(sommaarrow(8, 4));
 Crea una arrow function che calcola il quadrato di un numero.
 Definisci una funzione chiamata quadrato che accetta un numero e restituisce il suo quadrato in una sola riga.*/
 
-const alQuadrato = (num) => num * num
-console.log(alQuadrato(12));
+const quadrato = (num) => num * num
+console.log(quadrato(12));
 
 /*🏆 Snack 3
 Crea una funzione eseguiOperazione
@@ -80,3 +80,43 @@ setTimeout(() => {
     clearInterval(mioTimer);
     console.log("loop interrotto");
 }, 5000);
+
+
+/*🏆 Snack 6
+Crea un contatore automatico con setInterval
+Definisci una funzione creaContatoreAutomatico che accetta un intervallo di tempo e restituisce una funzione che avvia un setInterval, incrementando un contatore e stampandolo.*/
+
+function creaContatoreAutomatico(intervallo) {
+    let contatore = 0;
+    return () => {
+        setInterval(() => {
+            contatore++
+            console.log(`incremento contatore ${contatore}`);
+
+        }, intervallo)
+    }
+
+}
+
+const contaOgniSecondo = creaContatoreAutomatico(1000)
+//contaOgniSecondo()
+const contaOgniCinqueSecondi = creaContatoreAutomatico(5000)
+//contaOgniCinqueSecondi()
+
+/*🏆 Snack 7
+Crea una funzione che ferma un timer dopo un certo tempo
+Scrivi una funzione eseguiEferma che accetta un messaggio, un tempo di avvio e un tempo di stop. Il messaggio deve essere stampato a intervalli regolari, ma si deve fermare dopo il tempo di stop.*/
+
+function eseguiFerma(messaggio, avvio, stop) {
+    const id = setInterval(() => {
+        console.log(messaggio)
+    }, avvio)
+    setTimeout(() => {
+        //interrompo intervallo
+        clearInterval(id)
+     }, stop)
+
+
+}
+
+eseguiFerma('ehi sto eseguendo!!', 2000, 10000)
