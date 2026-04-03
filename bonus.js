@@ -27,6 +27,49 @@ Scrivi una funzione sequenzaOperazioni che accetta un array di operazioni (funzi
 
 Ogni operazione deve essere eseguita in sequenza con un ritardo uguale al tempo di intervallo.*/
 
-function sequenzaOperazioni([], intervallo) {
-    
+function sequenzaOperazioni(operazioni, intervallo) {
+
+    //per ogni operazione viene eseguita con un ritardo regolare
+    operazioni.forEach((operazione, index) => {
+        setTimeout(() => { operazione() },
+            intervallo * index)
+    });
+
 }
+
+sequenzaOperazioni([
+    () => console.log('operazione 1'),
+    () => console.log('operazione 2'),
+    () => console.log('operazione 3')
+], 2000);
+
+/*Creare un throttler per limitare l’esecuzione di una funzione
+Scrivi una funzione creaThrottler che accetta una funzione e un tempo `limite`.
+
+Restituisce una nuova funzione che, quando chiamata ripetutamente, esegue l'operazione originale al massimo una volta ogni n millisecondi.*/
+
+function creaThrottler(callback, limite) {
+
+    let ultimaEsecuzione = 0
+
+    return function(...args) {
+
+        const adesso = Date.now()
+
+        if(adesso - ultimaEsecuzione >= limite) {
+            ultimaEsecuzione = adesso
+            callback(...args)
+        }else{
+            console.log("non posso eseguire");
+            
+        }
+    }
+
+}
+
+const throttledLog = creaThrottler(() => console.log("Eseguito!"), 2000);
+
+throttledLog(); // ✅ "Eseguito!"
+throttledLog(); // ❌ Ignorato (chiamato troppo presto)
+setTimeout(throttledLog, 2500); // ✅ "Eseguito!" (dopo 2.5 secondi)
+
